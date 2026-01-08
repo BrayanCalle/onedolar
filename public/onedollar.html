@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONEDOLLAR - Marketplace de Productos Digitales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Halftone Pattern Decoration -->
+  <div class="halftone-corner top-left"></div>
+  <div class="halftone-corner bottom-right"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="navbar-logo">onedollar</a>
+    <ul class="navbar-links">
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-container">
+      <!-- Layer 1: Background Text -->
+      <!-- <h1 class="hero-title" data-parallax>ONE<spam>DOLLAR</spam></h1> -->
+      <div class="title-wrapper" data-parallax>
+        <p class="hero-title" >ONE</p>
+        <p class="hero-title" style="color: #93a238;">DOLLAR</p>
+      </div>
+
+      <div class="hero-product" data-parallax-reverse>
+        <!-- <img src="img/original-8cb7571da7209eb0443b028605d4b858.gif" alt=""> -->
+         <img src="img/ban1.jpeg" alt="">
+      </div>
+
+      <!-- Layer 3: Content -->
+      <div class="hero-content">
+        <p class="hero-subtitle">
+          La <span>mejor inversión</span> de un dólar en tu vida
+        </p>
+        <a href="#productos" class="cta-button">Explorar ahora</a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+    </div>
+  </section>
+  <section style="height: 100vh;">
+  </section>
+
+  <!-- Floating Badge -->
+  <div class="floating-badge"><span>🔥</span>+1000 productos</div>
+
+  <script>
+    // Parallax Effect on Scroll
+    document.addEventListener('DOMContentLoaded', () => {
+      const parallaxElements = document.querySelectorAll('[data-parallax]');
+      const parallaxReverseElements = document.querySelectorAll('[data-parallax-reverse]');
+
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+
+        parallaxElements.forEach((el) => {
+          const speed = 0.3;
+          el.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+
+        parallaxReverseElements.forEach((el) => {
+          const speed = 0.15;
+          el.style.transform = `translateY(${-scrollY * speed}px)`;
+        });
+      });
+
+      // Smooth entrance animation
+      const heroContent = document.querySelector('.hero-content');
+      const heroProduct = document.querySelector('.hero-product');
+      const heroTitle = document.querySelector('.hero-title');
+
+      setTimeout(() => {
+        heroTitle.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        heroTitle.style.opacity = '0.25';
+      }, 100);
+
+      setTimeout(() => {
+        heroProduct.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        heroProduct.style.opacity = '1';
+      }, 300);
+
+      setTimeout(() => {
+        heroContent.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        heroContent.style.opacity = '1';
+      }, 500);
+
+      // CTA Button click effect
+      const ctaButton = document.querySelector('.cta-button');
+      ctaButton.addEventListener('mouseenter', () => {
+        document.body.style.cursor = 'pointer';
+      });
+      ctaButton.addEventListener('mouseleave', () => {
+        document.body.style.cursor = 'default';
+      });
+    });
+  </script>
+</body>
+</html>

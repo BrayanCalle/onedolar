@@ -1,0 +1,332 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --black: #000000;
+    --neon-lime: #93a238;
+    /* --neon-lime: #DFFF00; */
+    --white: #FFFFFF;
+    --gray: #888888;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===== HALFTONE PATTERN ===== */
+.halftone-corner {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background-image: radial-gradient(var(--neon-lime) 2px, transparent 2px);
+    background-size: 12px 12px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.halftone-corner.top-left {
+    top: 0;
+    left: 0;
+    mask-image: radial-gradient(ellipse at top left, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at top left, black 0%, transparent 70%);
+}
+
+.halftone-corner.bottom-right {
+    bottom: 0;
+    right: 0;
+    mask-image: radial-gradient(ellipse at bottom right, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at bottom right, black 0%, transparent 70%);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem clamp(1rem, 5vw, 4rem);
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+}
+
+.navbar-logo {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--neon-lime);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.navbar-logo:hover {
+    color: var(--white);
+}
+
+.navbar-links {
+    display: flex;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    list-style: none;
+}
+
+.navbar-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.navbar-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--neon-lime);
+    transition: width 0.2s ease;
+}
+
+.navbar-links a:hover {
+    color: var(--white);
+}
+
+.navbar-links a:hover::after {
+    width: 100%;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: clamp(2rem, 5vw, 4rem);
+    overflow: hidden;
+}
+
+.hero-container {
+    position: relative;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    max-width: 100%;
+}
+
+/* Layer 1: Background Text */
+.title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    position: absolute;
+    z-index: 3;
+    white-space: nowrap;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 15vw, 18rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: var(--white);
+    user-select: none;
+    white-space: nowrap;
+    line-height: 0.8;
+    opacity: 0.85;
+}
+
+/* .hero-title {
+    font-size: clamp(3rem, 15vw, 18rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    color: var(--white);
+    opacity: 0.1;
+    user-select: none;
+    white-space: nowrap;
+    position: absolute;
+    z-index: 3;
+    display: flex;
+} */
+
+/* Layer 2: Product Image */
+.hero-product {
+    position: relative;
+    z-index: 2;
+    width: clamp(250px, 40vw, 500px);
+    height: clamp(250px, 40vw, 500px);
+    display: grid;
+    place-items: center;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.hero-product img{
+    width: 100vw;
+    height: auto;
+    position: absolute;
+    z-index: 2;
+    opacity: 0.35;
+}
+
+.hero-product:hover {
+    transform: translateY(-10px);
+}
+
+/* Layer 3: Content */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: var(--gray);
+    max-width: 500px;
+    line-height: 1.5;
+}
+
+.hero-subtitle span {
+    color: var(--neon-lime);
+    font-weight: 700;
+}
+
+/* CTA Button */
+.cta-button {
+    display: inline-block;
+    padding: clamp(1rem, 2vw, 1.25rem) clamp(2rem, 4vw, 3rem);
+    background-color: var(--neon-lime);
+    color: var(--black);
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: 3px solid var(--neon-lime);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    box-shadow: 6px 6px 0 var(--gray);
+}
+
+.cta-button:hover {
+    background-color: var(--black);
+    color: var(--neon-lime);
+    box-shadow: 8px 8px 0 var(--neon-lime);
+    transform: translate(-2px, -2px);
+}
+
+.cta-button:active {
+    box-shadow: 2px 2px 0 var(--neon-lime);
+    transform: translate(2px, 2px);
+}
+
+/* Floating Badge */
+.floating-badge {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--neon-lime);
+    color: var(--black);
+    padding: 1rem 1.5rem;
+    font-weight: 900;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    border: 3px solid var(--black);
+    box-shadow: 4px 4px 0 var(--gray);
+    z-index: 50;
+    animation: float 3s ease-in-out infinite;
+}
+
+.floating-badge:hover {
+    box-shadow: 4px 4px 0 var(--white);
+}
+
+.floating-badge > span {
+    display: inline-block;
+    /* Este filtro convierte el amarillo del emoji en un tono verde oliva aproximado */
+    filter: sepia(1) saturate(2) hue-rotate(30deg) brightness(0.7);
+    /* Ajusta hue-rotate para encontrar el tono exacto de verde */
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .navbar-links {
+    gap: 1rem;
+    }
+
+    .hero-title {
+    font-size: clamp(2.5rem, 20vw, 8rem);
+    }
+
+    .floating-badge {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    }
+
+    .halftone-corner {
+    width: 150px;
+    height: 150px;
+    }
+}
+
+/* ===== SCROLL INDICATOR ===== */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.scroll-indicator::after {
+    content: '↓';
+    font-size: 1.5rem;
+    color: var(--neon-lime);
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+}

@@ -1,8 +1,7 @@
-/* ===== RESET & BASE ===== */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import "tailwindcss";
+
+@theme {
+  --color-olive: #93a238;
 }
 
 :root {
@@ -306,8 +305,7 @@ body {
 /* ===== SCROLL INDICATOR ===== */
 .scroll-indicator {
     position: absolute;
-    bottom: 2rem;
-    left: 50%;
+    bottom: 1rem;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;

@@ -274,6 +274,26 @@ body {
     /* Ajusta hue-rotate para encontrar el tono exacto de verde */
 }
 
+/* Sección Categorías */
+.card-categoria{
+    background-image: url("../img/pen-4337524_1280.jpg");
+    background-size: cover;
+    background-blend-mode: overlay;
+    height: 40.475vh;
+    /* box-shadow: 0 0 8em black inset,
+        1px 0px 25px 1px #93a238; */
+    box-shadow: 1px 0px 14px 1px #93a238;
+    /* 389.33 x 259.44 */
+}
+
+.card-categoria:nth-child(2){
+    background-image: url("../img/car-7878056_1280.jpg");
+}
+
+.card-categoria:nth-child(3){
+    background-image: url("../img/woman-5979158_1280.jpg");
+}
+
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }

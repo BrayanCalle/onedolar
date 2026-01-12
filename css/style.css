@@ -114,6 +114,37 @@ body {
     width: 100%;
 }
 
+/* Botón Hamburguesa (Oculto por defecto en desktop) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 10px;
+}
+
+.menu-toggle .bar {
+    width: 30px;
+    height: 4px;
+    background-color: var(--neon-lime);
+    transition: all 0.3s ease;
+}
+
+/* Overlay */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    z-index: 999;
+}
+
 /* ===== HERO SECTION ===== */
 .hero {
     position: relative;
@@ -329,24 +360,66 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
     .navbar-links {
-    gap: 1rem;
+        position: fixed;
+        top: 0;
+        right: -100%; /* Oculto a la derecha */
+        width: 70%;
+        height: 100vh;
+        background-color: var(--black);
+        border-left: 4px solid var(--neon-lime);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        transition: right 0.4s cubic-bezier(0.77,0.2,0.05,1.0);
+        z-index: 1000;
+    }
+
+    .navbar-links.active {
+        right: 0;
+    }
+
+    .nav-overlay.active {
+        display: block;
+    }
+
+    /* Animación X de la hamburguesa */
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
     }
 
     .hero-title {
-    font-size: clamp(2.5rem, 20vw, 8rem);
+        font-size: clamp(2.5rem, 15vw, 8rem);
+    }
+
+    .hero-product img {
+        width: auto;
+        height: auto;
     }
 
     .floating-badge {
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.75rem 1rem;
-    font-size: 0.8rem;
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
     }
 
     .halftone-corner {
-    width: 150px;
-    height: 150px;
+        width: 150px;
+        height: 150px;
     }
 }
 

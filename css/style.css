@@ -275,24 +275,52 @@ body {
 }
 
 /* Sección Categorías */
-.card-categoria{
-    background-image: url("../img/pen-4337524_1280.jpg");
+.card-categoria {
     background-size: cover;
+    background-position: center;
     background-blend-mode: overlay;
-    height: 40.475vh;
-    /* box-shadow: 0 0 8em black inset,
-        1px 0px 25px 1px #93a238; */
+    height: 40vh; /* Ajustado para que se vea bien en el slider */
     box-shadow: 1px 0px 14px 1px #93a238;
-    /* 389.33 x 259.44 */
+    display: flex !important; /* Swiper a veces fuerza block, esto lo mantiene centrado */
 }
 
-.card-categoria:nth-child(2){
-    background-image: url("../img/car-7878056_1280.jpg");
+/* Imágenes de fondo para cada card */
+.slide-1 { background-image: url("../img/pen-4337524_1280.jpg"); }
+.slide-2 { background-image: url("../img/car-7878056_1280.jpg"); }
+.slide-3 { background-image: url("../img/woman-5979158_1280.jpg"); }
+/* Agrega fondos para las nuevas categorías */
+.slide-4 { background-image: url("../img/teacher-3966049_1280.jpg"); }
+.slide-5 { background-image: url("../img/artist-1658254_1280.jpg"); }
+
+.padding-slider {
+  /* Este contenedor ahora es el que controla que el slider no se pegue a los bordes */
+  overflow: hidden; 
+  padding: 1.5rem; /* Un poco más de espacio para el movimiento del hover */
 }
 
-.card-categoria:nth-child(3){
-    background-image: url("../img/woman-5979158_1280.jpg");
+/* Asegura que el contenedor padre del swiper limite el ancho */
+#categorias .max-w-7xl {
+    overflow: hidden;
 }
+/* Permite que las sombras y el hover se vean fuera del contenedor del swiper */
+.swiper-categorias {
+    padding: 1rem 0; /* Espacio vertical para la sombra */
+}
+
+/* Evita el scroll horizontal en toda la sección debido al overflow visible */
+#categorias {
+    overflow: hidden;
+}
+
+/* Opcional: Desactivar flechas si están en el inicio/final (solo si loop: false) */
+.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+/* #categorias .swiper-wrapper{
+    margin: 10px 2px;
+} */
 
 @keyframes float {
     0%, 100% { transform: translateY(0); }

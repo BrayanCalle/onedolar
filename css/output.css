@@ -573,13 +573,20 @@ body {
   font-weight: 900;
   font-size: 0.9rem;
   text-transform: uppercase;
-  border: 3px solid var(--black);
+  border: 3px solid var(--neon-lime);
   box-shadow: 4px 4px 0 var(--gray);
   z-index: 50;
   animation: float 3s ease-in-out infinite;
 }
 .floating-badge:hover {
-  box-shadow: 4px 4px 0 var(--white);
+  background-color: var(--black);
+  color: var(--neon-lime);
+  box-shadow: 8px 8px 0 var(--neon-lime);
+  transform: translate(-2px, -2px);
+}
+.floating-badge:active {
+  box-shadow: 2px 2px 0 var(--neon-lime);
+  transform: translate(2px, 2px);
 }
 .floating-badge > span {
   display: inline-block;

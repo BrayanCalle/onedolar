@@ -369,14 +369,14 @@ body {
     margin: 10px 2px;
 } */
 
-.productos-destacados {
+#productos-destacados {
     position: relative; /* Necesario para posicionar los destellos */
     background: #000000; /* Fondo base negro profundo */
     overflow: hidden;    /* Evita que los destellos generen scroll */
 }
 
 /* Destello superior izquierdo */
-.productos-destacados::before {
+#productos-destacados::before {
     content: "";
     position: absolute;
     top: 307px;
@@ -392,7 +392,7 @@ body {
 }
 
 /* Destello inferior derecho */
-.productos-destacados::after {
+#productos-destacados::after {
     content: "";
     position: absolute;
     bottom: 217px;

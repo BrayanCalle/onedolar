@@ -406,6 +406,16 @@ body {
     pointer-events: none;
 }
 
+/* Sección types */
+#type-pdf { background-image: url("../img/Ebook1.jpg"); }
+#type-templates { background-image: url("../img/Power.jpg"); }
+#type-infographic { background-image: url("../img/Photos.jpg"); }
+#type-audios { background-image: url("../img/audio.jpg"); }
+#type-documents { background-image: url("../img/Word.jpg"); }
+#type-excel { background-image: url("../img/Excel.jpg"); }
+#type-video { background-image: url("../img/213.jpg"); }
+#type-illustration { background-image: url("../img/illustra.jpg"); }
+
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }

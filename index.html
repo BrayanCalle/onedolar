@@ -113,18 +113,97 @@
     </div>
   </section>
 
+  <section class="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row gap-10">
+  
+    <div class="w-full md:w-1/2 md:sticky md:top-24 md:h-[70vh] flex flex-col justify-center">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="h-8 w-2 bg-olive"></div>
+        <h2 class="text-4xl font-black uppercase tracking-tighter">Explore <span class="text-olive">File Types</span></h2>
+      </div>
+      <p class="text-gray-400 mb-8 max-w-md">Encuentra el formato ideal para tus proyectos digitales. Desde documentos técnicos hasta recursos multimedia de alta calidad.</p>
+      
+      <div class="relative w-full aspect-square bg-neutral-900/50 rounded-4xl overflow-hidden border border-white/5 flex items-center justify-center">
+        <div id="canvas-3d" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+        <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent"></div>
+    </div>
+    </div>
+
+    <div class="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">PDF</p>
+        </a>
+      </div>
+
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">ZIP / RAR</p>
+        </a>
+      </div>
+
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">MP4 / MOV</p>
+        </a>
+      </div>
+
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">PNG / SVG</p>
+        </a>
+      </div>
+
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">MP3 / WAV</p>
+        </a>
+      </div>
+
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">PSD / AI</p>
+        </a>
+      </div>
+
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">JSON / CSV</p>
+        </a>
+      </div>
+
+      <div class="card-categoria h-48 flex items-center justify-center bg-neutral-900 border-0 rounded-4xl border-white hover:-translate-x-1 hover:-translate-y-1 transition-all group">
+        <a href="#" class="p-8">
+          <p class="text-2xl text-center font-black uppercase leading-tight">DOCX</p>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Floating Badge -->
   <div class="floating-badge"><span>🔥</span>+1000 productos</div>
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+<script type="module">
+  import * as THREE from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   // 1. FUNCIONES GLOBALES (Para que funcionen con onclick)
-  function toggleCardMenu(btn) {
+  window.toggleCardMenu = function(btn) {
       const menu = btn.nextElementSibling;
       menu.classList.toggle('hidden');
   }
 
-  function toggleHeart(btn) {
+  window.toggleHeart = function(btn) {
       let svg = btn.querySelector('svg');
       // Cambia entre blanco y un color (ej. rojo o negro)
       let isWhite = svg.getAttribute('fill') === 'white';
@@ -334,6 +413,71 @@
 
     menuToggleBtn.addEventListener('click', handleNavbar);
     navOverlay.addEventListener('click', handleNavbar);
+
+    
+
+    const container = document.getElementById('canvas-3d');
+    if (container) {
+        // 1. Escena y Cámara
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(0, 0, 3.5);
+
+        // 2. Renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // 3. Luces (Estilo dramático para tu web)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const mainLight = new THREE.DirectionalLight(0xffffff, 2);
+        mainLight.position.set(5, 5, 5);
+        scene.add(mainLight);
+
+        // 4. Controles (Para que el usuario pueda rotarlo)
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.enableZoom = false; // Evita que el zoom rompa el scroll de la página
+
+        // 5. Cargar el Modelo de George Washington
+        const loader = new GLTFLoader();
+        loader.load('base_basic_pbr.glb', (gltf) => {
+            const model = gltf.scene;
+            
+            model.traverse((node) => {
+                if (node.isMesh) {
+                    // FORZAMOS TU COLOR OLIVA #93a238
+                    node.material.color.setHex(0x93a238);
+                    node.material.roughness = 0.7;
+                    node.material.metalness = 0.3;
+                }
+            });
+
+            // Centrar el modelo
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.sub(center);
+            
+            scene.add(model);
+        });
+
+        // 6. Animación y Resize
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    }
   });
 </script>
 </body>

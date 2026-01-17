@@ -115,17 +115,17 @@
 
   <section class="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row gap-10">
   
-    <div class="w-full md:w-1/2 md:sticky md:top-24 md:h-[70vh] flex flex-col justify-center">
-      <div class="flex items-center gap-3 mb-6">
+    <div class="w-full md:w-1/2 md:sticky md:top-24 md:h-[70vh] flex flex-col justify-start">
+      <div class="flex items-center gap-3 mb-3">
         <div class="h-8 w-2 bg-olive"></div>
         <h2 class="text-4xl font-black uppercase tracking-tighter">Explore <span class="text-olive">File Types</span></h2>
       </div>
-      <p class="text-gray-400 mb-8 max-w-md">Encuentra el formato ideal para tus proyectos digitales. Desde documentos técnicos hasta recursos multimedia de alta calidad.</p>
+      <p class="text-gray-400 mb-8 max-w-md z-10">Encuentra el formato ideal para tus proyectos digitales. Desde documentos técnicos hasta<br> recursos multimedia de<br> alta calidad.</p>
       
-      <div class="relative w-full aspect-square bg-neutral-900/50 rounded-4xl overflow-hidden border border-white/5 flex items-center justify-center">
+      <div class="absolute w-full aspect-square bg-transparent rounded-4xl overflow-hidde flex items-center justify-center">
         <div id="canvas-3d" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
         <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent"></div>
-    </div>
+      </div>
     </div>
 
     <div class="w-full md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -180,6 +180,8 @@
 
     </div>
   </section>
+
+  <section class="h-screen"></section>
 
   <!-- Floating Badge -->
   <div class="floating-badge"><span>🔥</span>+1000 productos</div>
@@ -443,16 +445,17 @@
         controls.enableZoom = false; // Evita que el zoom rompa el scroll de la página
 
         // 5. Cargar el Modelo de George Washington
+        let model;
         const loader = new GLTFLoader();
         loader.load('base_basic_pbr.glb', (gltf) => {
-            const model = gltf.scene;
+            model = gltf.scene;
             
             model.traverse((node) => {
                 if (node.isMesh) {
                     // FORZAMOS TU COLOR OLIVA #93a238
                     node.material.color.setHex(0x93a238);
-                    node.material.roughness = 0.7;
-                    node.material.metalness = 0.3;
+                    node.material.roughness = 0.9;
+                    node.material.metalness = 0.1;
                 }
             });
 
@@ -460,8 +463,42 @@
             const box = new THREE.Box3().setFromObject(model);
             const center = box.getCenter(new THREE.Vector3());
             model.position.sub(center);
+
+            // POSICIÓN INICIAL: Mirando un poco hacia arriba
+            // (Ajusta este valor según tu modelo, -0.5 es aprox mirando arriba)
+            model.rotation.x = -0.5;
+            model.rotation.y = 0.5;
             
             scene.add(model);
+        });
+
+        // --- LÓGICA DE ROTACIÓN POR SCROLL ---
+        window.addEventListener('scroll', () => {
+            if (!model) return;
+
+            // Calculamos cuánto se ha desplazado el usuario
+            const scrollY = window.scrollY;
+            
+            // Obtenemos la posición del contenedor 3D respecto a la pantalla
+            const rect = container.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Calculamos un factor de progreso (0 a 1) basado en cuándo el canvas entra y sale de vista
+            // Esto hace que la animación ocurra mientras bajas por la sección de productos
+            const scrollProgress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)));
+
+            /**
+             * MAPEADO DE ROTACIÓN (en Radianes):
+             * Progress 0 (Inicio): -0.5 (Mira hacia arriba)
+             * Progress 0.5 (Medio): 0 (Mira al frente)
+             * Progress 1 (Final): 0.5 (Mira hacia abajo)
+             */
+            const startRotation = -0.5;
+            const endRotation = 1.0;
+            const targetRotation = startRotation + (endRotation - startRotation) * scrollProgress;
+
+            // Aplicamos la rotación suavemente (puedes usar lerp para más suavidad si prefieres)
+            model.rotation.x = targetRotation;
         });
 
         // 6. Animación y Resize
